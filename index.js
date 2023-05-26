@@ -26,24 +26,6 @@ const generateGuestUser = () => {
   };
 };
 
-// API endpoint for getting random user data
-app.get('/api/users', (req, res) => {
-  const users = [];
-  for (let i = 0; i < 10; i++) {
-    users.push(generateUser());
-  }
-  res.json(users);
-});
-
-// API endpoint for getting random guest user data
-app.get('/api/guests', (req, res) => {
-  const guests = [];
-  for (let i = 0; i < 10; i++) {
-    guests.push(generateGuestUser());
-  }
-  res.json(guests);
-});
-
 // Generate random data for the pie chart
 const generatePieChartData = () => {
   const items = ["Basic Tees", "Custom Short Pants", "Super Hoodies"];
@@ -64,6 +46,29 @@ const generatePieChartData = () => {
 
   return data;
 };
+
+// API endpoint for getting random user data
+app.get('/', (req, res) => {
+  res.send("<h1>Welcome to Dummy Data</h1>")
+});
+
+// API endpoint for getting random user data
+app.get('/api/users', (req, res) => {
+  const users = [];
+  for (let i = 0; i < 10; i++) {
+    users.push(generateUser());
+  }
+  res.json(users);
+});
+
+// API endpoint for getting random guest user data
+app.get('/api/guests', (req, res) => {
+  const guests = [];
+  for (let i = 0; i < 10; i++) {
+    guests.push(generateGuestUser());
+  }
+  res.json(guests);
+});
 
 // API endpoint for getting random pie chart data
 app.get('/api/piechart', (req, res) => {
