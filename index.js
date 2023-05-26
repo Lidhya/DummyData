@@ -8,21 +8,23 @@ const generateUser = () => {
   const names = ['John', 'Jane', 'Alice', 'Bob', 'Eve'];
   const randomIndex = Math.floor(Math.random() * names.length);
   const name = names[randomIndex];
+  const joinedWeek = Math.floor(Math.random() * 4) + 1;
 
   return {
     name,
     email: `${name.toLowerCase()}@example.com`,
-    address: '123 Street',
-    city: 'City',
-    country: 'Country'
+    joinedWeek,
   };
 };
 
 // Generate random guest user data
 const generateGuestUser = () => {
+  const joinedWeek = Math.floor(Math.random() * 4) + 1;
+  
   return {
     token: Math.random().toString(36).substr(2),
-    expiresAt: new Date(Date.now() + 1000 * 60 * 60 * 24) // 24 hours from now
+    expiresAt: new Date(Date.now() + 1000 * 60 * 60 * 24), // 24 hours from now
+    joinedWeek,
   };
 };
 
@@ -31,7 +33,7 @@ const generatePieChartData = () => {
   const items = ["Basic Tees", "Custom Short Pants", "Super Hoodies"];
   const data = [];
   let total = 0;
-  
+
   for (let i = 0; i < items.length; i++) {
     const count = Math.floor(Math.random() * 100); // Random count between 0 and 99
     total += count;
@@ -75,7 +77,6 @@ app.get('/api/piechart', (req, res) => {
   const pieChartData = generatePieChartData();
   res.json(pieChartData);
 });
-
 
 // Start the server
 app.listen(port, () => {
