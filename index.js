@@ -8,27 +8,18 @@ app.use(cors());
 
 // Generate random user data
 const generateUser = () => {
-  const names = ['John', 'Jane', 'Alice', 'Bob', 'Eve'];
-  const randomIndex = Math.floor(Math.random() * names.length);
-  const name = names[randomIndex];
-  const joinedWeek = Math.floor(Math.random() * 4) + 1;
+  const users = [];
+  const minUsers = 0;
+  const maxUsers = 499;
 
-  return {
-    name,
-    email: `${name.toLowerCase()}@example.com`,
-    joinedWeek,
-  };
-};
+  for (let week = 1; week <= 4; week++) {
+    const numUsers = Math.floor(Math.random() * (maxUsers - minUsers + 1)) + minUsers;
+    for (let i = 0; i < numUsers; i++) {
+      users.push({ week: week, name: `User ${week}-${i + 1}` });
+    }
+  }
 
-// Generate random guest user data
-const generateGuestUser = () => {
-  const joinedWeek = Math.floor(Math.random() * 4) + 1;
-  
-  return {
-    token: Math.random().toString(36).substr(2),
-    expiresAt: new Date(Date.now() + 1000 * 60 * 60 * 24), // 24 hours from now
-    joinedWeek,
-  };
+  return users;
 };
 
 // Generate random data for the pie chart
@@ -59,19 +50,13 @@ app.get('/', (req, res) => {
 
 // API endpoint for getting random user data
 app.get('/api/users', (req, res) => {
-  const users = [];
-  for (let i = 0; i < 10; i++) {
-    users.push(generateUser());
-  }
+  const users = generateUser()
   res.json(users);
 });
 
 // API endpoint for getting random guest user data
 app.get('/api/guests', (req, res) => {
-  const guests = [];
-  for (let i = 0; i < 10; i++) {
-    guests.push(generateGuestUser());
-  }
+  const guests = generateUser()
   res.json(guests);
 });
 
