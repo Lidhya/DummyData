@@ -48,10 +48,18 @@ app.get('/api/guests', (req, res) => {
 const generatePieChartData = () => {
   const items = ["Basic Tees", "Custom Short Pants", "Super Hoodies"];
   const data = [];
+  let total = 0;
   
   for (let i = 0; i < items.length; i++) {
     const count = Math.floor(Math.random() * 100); // Random count between 0 and 99
+    total += count;
     data.push({ item: items[i], count });
+  }
+
+  // Calculate the overall percentage for each item
+  for (let i = 0; i < data.length; i++) {
+    const percentage = (data[i].count / total) * 100;
+    data[i].percentage = parseFloat(percentage.toFixed(2));
   }
 
   return data;
