@@ -8,18 +8,16 @@ app.use(cors());
 
 // Generate random user data
 const generateUser = () => {
-  const users = [];
+  const jsonData = [];
   const minUsers = 0;
   const maxUsers = 499;
 
   for (let week = 1; week <= 4; week++) {
     const numUsers = Math.floor(Math.random() * (maxUsers - minUsers + 1)) + minUsers;
-    for (let i = 0; i < numUsers; i++) {
-      users.push({ week: week, name: `User ${week}-${i + 1}` });
-    }
+    jsonData.push({ week: week, numUsers: numUsers });
   }
 
-  return users;
+  return jsonData;
 };
 
 // Generate random data for the pie chart
